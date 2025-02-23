@@ -12,6 +12,26 @@ using namespace winrt::Microsoft::UI::Xaml;
 
 namespace winrt::TimerReminder::implementation
 {
+    void MainWindow::MainWindow_Activated(IInspectable const& sender, WindowActivatedEventArgs const& e)
+    {
+        if (e.WindowActivationState() == WindowActivationState::Deactivated)
+        {
+            TitleBarTextBlock().Foreground(
+                Application::Current().Resources()
+                .Lookup(winrt::box_value(L"WindowCaptionForegroundDisabled"))
+                .as<Media::Brush>()
+            );
+        }
+        else
+        {
+            TitleBarTextBlock().Foreground(
+                Application::Current().Resources()
+                .Lookup(winrt::box_value(L"WindowCaptionForeground"))
+                .as<Media::Brush>()
+            );
+        }
+    }
+
     int32_t MainWindow::MyProperty()
     {
         throw hresult_not_implemented();
